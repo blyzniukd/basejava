@@ -4,7 +4,14 @@
 public class Resume implements Comparable<Resume>{
 
     // Unique identifier
+    // по хорошему должен быть private с  доступом  через геттер
     String uuid;
+
+    Resume(){}
+
+    Resume( String uuid){
+        this.uuid = uuid;
+    }
 
     @Override
     public String toString() {

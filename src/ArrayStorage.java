@@ -20,9 +20,8 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        Resume searchObj = new Resume();
-        searchObj.uuid = uuid;
-        int position = Arrays.binarySearch(this.storage, 0, size, searchObj);
+        Resume searchObj = new Resume(uuid);
+        int position = Arrays.binarySearch(this.storage, 0, size, searchObj );
 
         if (position != -1){
             return storage[position];
@@ -32,8 +31,7 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        Resume searchObj = new Resume();
-        searchObj.uuid = uuid;
+        Resume searchObj = new Resume(uuid);
         int position = Arrays.binarySearch(storage, 0, size, searchObj);
         if ( position != -1 ){
             for(int i = position; i < size; i++) {
