@@ -13,26 +13,29 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if ( size+1 < 10000 ) {
+        if ( size < storage.length ) {
             storage[size] = r;
             size++;
         }
     }
 
     Resume get(String uuid) {
-        Resume searchObj = new Resume(uuid);
-        int position = Arrays.binarySearch(this.storage, 0, size, searchObj );
-
-        if (position != -1){
-            return storage[position];
-        } else {
-            return new Resume();
+        Resume answer = new Resume();
+        for (int i = 0; i < size; i++){
+            if (storage[i].uuid.equals(uuid)){
+                answer = storage[i];
+            }
         }
+        return answer;
     }
 
     void delete(String uuid) {
-        Resume searchObj = new Resume(uuid);
-        int position = Arrays.binarySearch(storage, 0, size, searchObj);
+        int position = -1;
+        for (int i = 0; i < size; i++){
+            if (storage[i].uuid.equals(uuid)){
+                position = i;
+            }
+        }
         if ( position != -1 ){
             System.arraycopy(storage, position + 1, storage, position, size - position);
             size--;
