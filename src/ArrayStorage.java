@@ -13,7 +13,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if ( size+1 < 10000L ) {
+        if ( size+1 < 10000 ) {
             storage[size] = r;
             size++;
         }
@@ -34,9 +34,7 @@ public class ArrayStorage {
         Resume searchObj = new Resume(uuid);
         int position = Arrays.binarySearch(storage, 0, size, searchObj);
         if ( position != -1 ){
-            for(int i = position; i < size; i++) {
-                storage[i] = storage[i+1];
-            }
+            System.arraycopy(storage, position + 1, storage, position, size - position);
             size--;
         }
     }
