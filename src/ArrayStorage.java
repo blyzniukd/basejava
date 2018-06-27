@@ -46,7 +46,13 @@ public class ArrayStorage {
     }
 
     public boolean update(Resume resume) {
-        return false;
+        int position = this.checkUuid(resume.getUuid());
+        if (position != -1){
+            this.storage[position] = resume;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
