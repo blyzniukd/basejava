@@ -7,45 +7,66 @@ public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
     private int size = 0;
 
-    void clear() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    void save(Resume r) {
-        if (size < storage.length) {
-            storage[size] = r;
-            size++;
+    public void save(Resume r) {
+        if (this.checkUuid(r.getUuid()) == -1) {
+            if (size < storage.length) {
+                storage[size] = r;
+                size++;
+            } else {
+                System.out.println("The array is full. Try to delete element from array before save.");
+            }
+        } else {
+            System.out.println(" Resume with same UUID[" + r.getUuid() + "] is exist.");
         }
     }
 
-    Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                return storage[i];
-            }
+    public Resume get(String uuid) {
+        int position = this.checkUuid(uuid);
+        if (position != -1) {
+            return storage[position];
+        } else {
+            System.out.println("Resume object with UUID[" + uuid + "] is not exist.");
+            return null;
         }
-        return null;
     }
 
-    void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, size - i);
-                size--;
-                break;
-            }
+    public void delete(String uuid) {
+        int position = this.checkUuid(uuid);
+        if (position != -1) {
+            System.arraycopy(storage, position + 1, storage, position, size - position);
+            size--;
+        } else {
+            System.out.println("Resume object with UUID[" + uuid + "] is not exist.");
         }
+    }
+
+    public boolean update(Resume resume) {
+        return false;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
-    int size() {
+    public int size() {
         return size;
+    }
+
+    private int checkUuid(String uuid) {
+        int position = -1;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                position = i;
+            }
+        }
+        return position;
     }
 }
