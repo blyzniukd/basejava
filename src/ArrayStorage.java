@@ -13,20 +13,20 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (this.checkUuid(r.getUuid()) == -1) {
-            if (size < storage.length) {
+        if (size < storage.length) {
+            if (checkUuid(r.getUuid()) == -1) {
                 storage[size] = r;
                 size++;
             } else {
-                System.out.println("The array is full. Try to delete element from array before save.");
+                System.out.println(" Resume with same UUID[" + r.getUuid() + "] is exist.");
             }
         } else {
-            System.out.println(" Resume with same UUID[" + r.getUuid() + "] is exist.");
+            System.out.println("The array is full. Try to delete element from array before save.");
         }
     }
 
     public Resume get(String uuid) {
-        int position = this.checkUuid(uuid);
+        int position = checkUuid(uuid);
         if (position != -1) {
             return storage[position];
         } else {
@@ -36,22 +36,22 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int position = this.checkUuid(uuid);
+        int position = checkUuid(uuid);
         if (position != -1) {
-            System.arraycopy(storage, position + 1, storage, position, size - position);
+            storage[position] = storage[size];
+            storage[size] = null;
             size--;
         } else {
             System.out.println("Resume object with UUID[" + uuid + "] is not exist.");
         }
     }
 
-    public boolean update(Resume resume) {
-        int position = this.checkUuid(resume.getUuid());
+    public void update(Resume resume) {
+        int position = checkUuid(resume.getUuid());
         if (position != -1){
-            this.storage[position] = resume;
-            return true;
+            storage[position] = resume;
         } else {
-            return false;
+            System.out.println("Resume object with UUID[" + resume.getUuid() + "] is not exist.");
         }
     }
 
