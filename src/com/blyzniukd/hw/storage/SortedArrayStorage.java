@@ -8,8 +8,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void save(Resume r) {
-        if (size < storage.length) {
-            int position = size == 0 ? 0 : findIndexToInsert(r);
+        if (size < STORAGE_LIMIT) {
+            int position = findIndexToInsert(r);
             if (getIndex(r.getUuid()) < 0 && position != -1) {
                 shiftElements(position, r, true);
             } else {
@@ -34,10 +34,15 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     private int findIndexToInsert(Resume r) {
         int position = -1;
-        for (int i = 0; i < size; i++) {
-            position = i;
-            if (storage[i].hashCode() > r.hashCode()) {
-                break;
+        if (size == 0) {
+            position = 0;
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].hashCode() > r.hashCode()) {
+                    position = i;
+                    break;
+                }
+                position = i + 1;
             }
         }
         return position;
@@ -45,8 +50,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     private void shiftElements(int position, Resume r, boolean increase) {
         if (increase) {
-            for (int i = size - 1; i > position; i--) {
-                storage[i] = storage[i - 1];
+            if (size != 0) {
+                for (int i = size; i > position; i--) {
+                    storage[i] = storage[i - 1];
+                }
             }
             storage[position] = r;
             size++;

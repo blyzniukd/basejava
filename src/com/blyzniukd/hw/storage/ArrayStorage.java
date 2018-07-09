@@ -8,7 +8,7 @@ import com.blyzniukd.hw.data.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     public void save(Resume r) {
-        if (size < storage.length) {
+        if (size < STORAGE_LIMIT) {
             if (getIndex(r.getUuid()) == -1) {
                 storage[size] = r;
                 size++;
