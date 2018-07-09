@@ -1,9 +1,14 @@
+package com.blyzniukd.hw;
+
+import com.blyzniukd.hw.data.Resume;
+import com.blyzniukd.hw.storage.ArrayStorage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Test for com.urise.webapp.storage.ArrayStorage
+ * Test for com.blyzniukd.hw.ArrayStorage
  */
 public class MainArray {
     private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();

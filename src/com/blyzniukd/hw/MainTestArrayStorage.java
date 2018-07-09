@@ -1,8 +1,14 @@
+package com.blyzniukd.hw;
+
+import com.blyzniukd.hw.data.Resume;
+import com.blyzniukd.hw.storage.SortedArrayStorage;
+import com.blyzniukd.hw.storage.Storage;
+
 /**
- * Test for com.urise.webapp.storage.ArrayStorage
+ * Test for com.blyzniukd.hw.ArrayStorage
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
 
