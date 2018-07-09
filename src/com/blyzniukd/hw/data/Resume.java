@@ -5,7 +5,7 @@ package com.blyzniukd.hw.data;
  */
 public class Resume implements Comparable<Resume> {
 
-    // Unique identifier
+    // Id
     private String uuid;
 
     public String getUuid() {
