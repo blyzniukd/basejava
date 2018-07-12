@@ -1,14 +1,14 @@
 package com.blyzniukd.hw;
 
 import com.blyzniukd.hw.model.Resume;
-import com.blyzniukd.hw.storage.SortedArrayStorage;
+import com.blyzniukd.hw.storage.ArrayStorage;
 import com.blyzniukd.hw.storage.Storage;
 
 /**
  * Test for com.blyzniukd.hw.ArrayStorage
  */
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
 

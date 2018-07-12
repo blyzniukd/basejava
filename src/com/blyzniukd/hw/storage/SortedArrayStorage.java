@@ -28,19 +28,4 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    private int findIndexToInsert(Resume r) {
-        int position = -1;
-        if (size == 0) {
-            position = 0;
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].hashCode() > r.hashCode()) {
-                    position = i;
-                    break;
-                }
-                position = i + 1;
-            }
-        }
-        return position;
-    }
 }
