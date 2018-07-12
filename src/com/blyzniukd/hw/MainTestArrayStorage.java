@@ -1,6 +1,6 @@
 package com.blyzniukd.hw;
 
-import com.blyzniukd.hw.data.Resume;
+import com.blyzniukd.hw.model.Resume;
 import com.blyzniukd.hw.storage.SortedArrayStorage;
 import com.blyzniukd.hw.storage.Storage;
 

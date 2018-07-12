@@ -1,6 +1,6 @@
 package com.blyzniukd.hw.storage;
 
-import com.blyzniukd.hw.data.Resume;
+import com.blyzniukd.hw.model.Resume;
 
 public interface Storage {
     void clear();

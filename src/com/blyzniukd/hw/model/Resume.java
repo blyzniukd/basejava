@@ -1,7 +1,7 @@
-package com.blyzniukd.hw.data;
+package com.blyzniukd.hw.model;
 
 /**
- * com.blyzniukd.hw.data.Resume class
+ * com.blyzniukd.hw.model.Resume class
  */
 public class Resume implements Comparable<Resume> {
 
@@ -31,7 +31,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid + "; hash=" + hashCode();
+        return uuid;
     }
 
     @Override
