@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index > -1 ) {
+        if (index > -1) {
             storage[index] = resume;
         } else {
             System.out.println("Resume object with UUID[" + resume.getUuid() + "] is not exist.");
@@ -43,7 +43,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index > -1 ) {
+        if (index > -1) {
             return storage[index];
         } else {
             System.out.println("Resume object with UUID[" + uuid + "] is not exist.");
