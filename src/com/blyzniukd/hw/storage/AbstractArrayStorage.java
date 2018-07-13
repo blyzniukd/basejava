@@ -19,19 +19,19 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void update(Resume resume) {
-        int position = getIndex(resume.getUuid());
-        if (position != -1) {
-            storage[position] = resume;
+        int index = getIndex(resume.getUuid());
+        if (index > -1 ) {
+            storage[index] = resume;
         } else {
             System.out.println("Resume object with UUID[" + resume.getUuid() + "] is not exist.");
         }
     }
 
     public void save(Resume r) {
-        int position = getIndex(r.getUuid());
+        int index = getIndex(r.getUuid());
         if (size < STORAGE_LIMIT) {
-            if (position < 0) {
-                insertResume(r, position);
+            if (index < 0) {
+                insertResume(r, index);
                 size++;
             } else {
                 System.out.println("Resume with same UUID[" + r.getUuid() + "] is exist.");
@@ -42,9 +42,9 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        int position = getIndex(uuid);
-        if (position != -1) {
-            return storage[position];
+        int index = getIndex(uuid);
+        if (index > -1 ) {
+            return storage[index];
         } else {
             System.out.println("Resume object with UUID[" + uuid + "] is not exist.");
             return null;
@@ -52,9 +52,9 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        int position = getIndex(uuid);
-        if (position != -1) {
-            deleteResume(position);
+        int index = getIndex(uuid);
+        if (index > -1) {
+            deleteResume(index);
             storage[size - 1] = null;
             size--;
         } else {
@@ -72,7 +72,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract int getIndex(String uuid);
 
-    protected abstract void insertResume(Resume r, int position);
+    protected abstract void insertResume(Resume r, int index);
 
-    protected abstract void deleteResume(int position);
+    protected abstract void deleteResume(int index);
 }
