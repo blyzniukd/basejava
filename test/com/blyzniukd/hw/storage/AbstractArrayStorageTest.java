@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
-    private final Storage storage_expexted;
     private static final int STORAGE_LIMIT = 100_000;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -17,9 +16,8 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_NEW = "uuidNEW";
 
 
-    public AbstractArrayStorageTest(Storage storage) throws IllegalAccessException, InstantiationException {
+    public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
-        this.storage_expexted = storage.getClass().newInstance();
     }
 
     @Before
@@ -28,9 +26,6 @@ public abstract class AbstractArrayStorageTest {
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
         storage.save(new Resume(UUID_3));
-        storage_expexted.save(new Resume(UUID_1));
-        storage_expexted.save(new Resume(UUID_2));
-        storage_expexted.save(new Resume(UUID_3));
     }
 
     @Test
@@ -61,8 +56,11 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void getAll() {
-
+    public void getAll() throws IllegalAccessException, InstantiationException {
+        final Storage storage_expexted = storage.getClass().newInstance();
+        storage_expexted.save(new Resume(UUID_1));
+        storage_expexted.save(new Resume(UUID_2));
+        storage_expexted.save(new Resume(UUID_3));
         Assert.assertArrayEquals(storage_expexted.getAll(), storage.getAll());
     }
 
@@ -83,7 +81,7 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume());
 //                Check the rule of StorageException
 //                if (i > 100) {
-//                    throw new StorageException("Check the StorageException Rule", "NULL");
+//                    throw new Exception("Some other Exception");
 //                }
             }
         } catch (StorageException ex) {
