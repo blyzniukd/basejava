@@ -1,5 +1,6 @@
 package com.blyzniukd.hw.storage;
 
+import com.blyzniukd.hw.exception.ExistStorageException;
 import com.blyzniukd.hw.exception.NotExistStorageException;
 import com.blyzniukd.hw.exception.StorageException;
 import com.blyzniukd.hw.model.Resume;
@@ -11,10 +12,10 @@ import static com.blyzniukd.hw.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
-    private final Resume UUID_1 = new Resume("uuid1");
-    private final Resume UUID_2 = new Resume("uuid2");
-    private final Resume UUID_3 = new Resume("uuid3");
-    private final Resume UUID_NEW = new Resume("uuidNEW");
+    private final Resume resumeTest1 = new Resume("uuid1");
+    private final Resume resumeTest2 = new Resume("uuid2");
+    private final Resume resumeTest3 = new Resume("uuid3");
+    private final Resume resumeTestNew = new Resume("uuidNEW");
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -23,9 +24,9 @@ public abstract class AbstractArrayStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(UUID_1);
-        storage.save(UUID_2);
-        storage.save(UUID_3);
+        storage.save(resumeTest1);
+        storage.save(resumeTest2);
+        storage.save(resumeTest3);
     }
 
     @Test
@@ -37,34 +38,62 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        storage.update(UUID_1);
+        storage.update(resumeTest1);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void updateException() {
-        storage.update(UUID_NEW);
+    public void updateNotExistException() {
+        storage.update(resumeTestNew);
     }
 
     @Test
     public void save() throws Exception {
-        storage.save(UUID_NEW);
+        storage.save(resumeTestNew);
+    }
+
+    @Test(expected = StorageException.class)
+    public void saveOverloadException() throws Exception {
+        try {
+            for (int i = storage.size() - 1; i <= STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
+            }
+        } catch (StorageException ex) {
+            if (storage.size() != STORAGE_LIMIT) {
+                Assert.fail();
+            } else {
+                throw ex;
+            }
+        }
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveResumeExistException() throws Exception {
+        storage.save(resumeTest2);
     }
 
     @Test
     public void get() {
-        Assert.assertEquals(UUID_2, storage.get(UUID_2.getUuid()));
+        Assert.assertEquals(resumeTest2, storage.get(resumeTest2.getUuid()));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void getNotExistException() {
+        storage.get(resumeTestNew.getUuid());
     }
 
     @Test
     public void delete() throws Exception {
-        storage.delete(UUID_3.getUuid());
+        storage.delete(resumeTest3.getUuid());
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deleteNotExistException() throws Exception {
+        storage.delete(resumeTestNew.getUuid());
     }
 
     @Test
     public void getAll() {
-        Assert.assertEquals(UUID_1, storage.getAll()[0]);
-        Assert.assertEquals(UUID_2, storage.getAll()[1]);
-        Assert.assertEquals(UUID_3, storage.getAll()[2]);
+        Assert.assertArrayEquals(new Resume[]{resumeTest1, resumeTest2, resumeTest3}, storage.getAll());
     }
 
     @Test
@@ -75,24 +104,5 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExistsException() throws Exception {
         storage.get("dummy");
-    }
-
-    @Test(expected = StorageException.class)
-    public void checkOverloadException() throws Exception {
-        try {
-            for (int i = storage.size() - 1; i <= STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-//                Check the rule of StorageException
-//                if (i > 100) {
-//                    throw new Exception("Some other Exception");
-//                }
-            }
-        } catch (StorageException ex) {
-            if (storage.size() != STORAGE_LIMIT) {
-                Assert.fail();
-            } else {
-                throw ex;
-            }
-        }
     }
 }
