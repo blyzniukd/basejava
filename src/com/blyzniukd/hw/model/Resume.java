@@ -2,9 +2,6 @@ package com.blyzniukd.hw.model;
 
 import java.util.UUID;
 
-/**
- * com.blyzniukd.hw.model.Resume class
- */
 public class Resume implements Comparable<Resume> {
 
     // Id
@@ -45,7 +42,7 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
-    public int compareTo(Resume r) {
-        return uuid.compareTo(r.uuid);
+    public int compareTo(Resume resume) {
+        return uuid.compareTo(resume.uuid);
     }
 }

@@ -7,14 +7,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.blyzniukd.hw.storage.AbstractArrayStorage.STORAGE_LIMIT;
+
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
-    private static final int STORAGE_LIMIT = 100_000;
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_NEW = "uuidNEW";
-
+    private final Resume UUID_1 = new Resume("uuid1");
+    private final Resume UUID_2 = new Resume("uuid2");
+    private final Resume UUID_3 = new Resume("uuid3");
+    private final Resume UUID_NEW = new Resume("uuidNEW");
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -23,9 +23,9 @@ public abstract class AbstractArrayStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(UUID_1);
+        storage.save(UUID_2);
+        storage.save(UUID_3);
     }
 
     @Test
@@ -37,31 +37,34 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        storage.update(new Resume(UUID_1));
+        storage.update(UUID_1);
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void updateException() {
+        storage.update(UUID_NEW);
     }
 
     @Test
     public void save() throws Exception {
-        storage.save(new Resume(UUID_NEW));
+        storage.save(UUID_NEW);
     }
 
     @Test
     public void get() {
-        Assert.assertEquals(new Resume(UUID_2), storage.get(UUID_2));
+        Assert.assertEquals(UUID_2, storage.get(UUID_2.getUuid()));
     }
 
     @Test
     public void delete() throws Exception {
-        storage.delete(UUID_3);
+        storage.delete(UUID_3.getUuid());
     }
 
     @Test
-    public void getAll() throws IllegalAccessException, InstantiationException {
-        final Storage storage_expexted = storage.getClass().newInstance();
-        storage_expexted.save(new Resume(UUID_1));
-        storage_expexted.save(new Resume(UUID_2));
-        storage_expexted.save(new Resume(UUID_3));
-        Assert.assertArrayEquals(storage_expexted.getAll(), storage.getAll());
+    public void getAll() {
+        Assert.assertEquals(UUID_1, storage.getAll()[0]);
+        Assert.assertEquals(UUID_2, storage.getAll()[1]);
+        Assert.assertEquals(UUID_3, storage.getAll()[2]);
     }
 
     @Test
@@ -70,14 +73,14 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExists() throws Exception {
+    public void getNotExistsException() throws Exception {
         storage.get("dummy");
     }
 
     @Test(expected = StorageException.class)
-    public void getExists() throws Exception {
+    public void checkOverloadException() throws Exception {
         try {
-            for (int i = storage.size(); i <= STORAGE_LIMIT; i++) {
+            for (int i = storage.size() - 1; i <= STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
 //                Check the rule of StorageException
 //                if (i > 100) {
