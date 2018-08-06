@@ -5,8 +5,6 @@ import com.blyzniukd.hw.exception.NotExistStorageException;
 import com.blyzniukd.hw.model.Resume;
 
 public abstract class AbstractStorage implements Storage{
-    protected static final int STORAGE_LIMIT = 10;
-    protected int size = 0;
 
     protected abstract Object findKeyObject(String uuid);
     protected abstract Resume getElement(Object keyObject);
@@ -26,7 +24,7 @@ public abstract class AbstractStorage implements Storage{
     }
 
     public Resume get(String uuid){
-     Object keyObject =  findKeyObject(uuid);
+     Object keyObject = getKeyOfExistObject(uuid);
      return getElement(keyObject);
     }
 
@@ -49,9 +47,5 @@ public abstract class AbstractStorage implements Storage{
             throw new ExistStorageException(uuid);
         }
         return keyObject;
-    }
-
-    public int size() {
-        return size;
     }
 }

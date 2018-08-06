@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import static com.blyzniukd.hw.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
-public abstract class AbstractArrayStorageTest {
+public class AbstractStorageTest {
     private final Storage storage;
     private final Resume resume_1 = new Resume("uuid1");
     private final Resume resume_2 = new Resume("uuid2");
     private final Resume resume_3 = new Resume("uuid3");
     private final Resume resume_4 = new Resume("uuidNEW");
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -112,4 +112,5 @@ public abstract class AbstractArrayStorageTest {
     public void getNotExistsException() {
         storage.get(resume_4.getUuid());
     }
+
 }
