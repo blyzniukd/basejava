@@ -2,7 +2,7 @@ package com.blyzniukd.hw.storage;
 
 import com.blyzniukd.hw.model.Resume;
 
-public class MapStorage extends AbstractStorage{
+public class MapStorage extends AbstractStorage {
     @Override
     protected Object findKeyObject(String uuid) {
         return null;

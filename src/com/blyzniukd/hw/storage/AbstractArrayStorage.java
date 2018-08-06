@@ -24,7 +24,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected void doSave(Object index, Resume resume) {
         if (size < STORAGE_LIMIT) {
             if ((Integer) index < 0) {
-                insertResume(resume, (Integer)index);
+                insertResume(resume, (Integer) index);
                 size++;
             }
         } else {
@@ -35,14 +35,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object index) {
-            deleteResume((Integer)index);
-            storage[size - 1] = null;
-            size--;
+        deleteResume((Integer) index);
+        storage[size - 1] = null;
+        size--;
     }
 
     @Override
     protected boolean isExistElement(Object index) {
-        return (Integer) index>=0;
+        return (Integer) index >= 0;
     }
 
     @Override
