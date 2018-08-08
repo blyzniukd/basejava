@@ -20,12 +20,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getElement(Object keyObject) {
+    protected Resume doGet(Object keyObject) {
         return list.get((Integer) keyObject);
     }
 
     @Override
-    protected boolean isExistElement(Object keyObject) {
+    protected boolean isExist(Object keyObject) {
         return keyObject != null;
     }
 

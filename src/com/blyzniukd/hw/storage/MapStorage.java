@@ -9,12 +9,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getElement(Object keyObject) {
+    protected Resume doGet(Object keyObject) {
         return null;
     }
 
     @Override
-    protected boolean isExistElement(Object keyObject) {
+    protected boolean isExist(Object keyObject) {
         return false;
     }
 

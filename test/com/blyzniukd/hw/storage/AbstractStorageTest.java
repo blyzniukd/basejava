@@ -60,14 +60,10 @@ public class AbstractStorageTest {
             for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
-            storage.save(new Resume());
-        } catch (StorageException ex) {
-            if (storage.size() != STORAGE_LIMIT) {
-                Assert.fail();
-            } else {
-                throw ex;
-            }
+        } catch (Exception ex) {
+            Assert.fail();
         }
+        storage.save(new Resume());
     }
 
     @Test(expected = ExistStorageException.class)
@@ -106,11 +102,6 @@ public class AbstractStorageTest {
     @Test
     public void size() {
         Assert.assertEquals(3, storage.size());
-    }
-
-    @Test(expected = NotExistStorageException.class)
-    public void getNotExistsException() {
-        storage.get(resume_4.getUuid());
     }
 
 }

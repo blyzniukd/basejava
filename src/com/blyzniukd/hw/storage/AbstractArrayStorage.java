@@ -23,10 +23,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected void doSave(Object index, Resume resume) {
         if (size < STORAGE_LIMIT) {
-            if ((Integer) index < 0) {
-                insertResume(resume, (Integer) index);
-                size++;
-            }
+            insertResume(resume, (Integer) index);
+            size++;
         } else {
             throw new StorageException("The array is full. Try to delete element from array before save.", resume.getUuid());
         }
@@ -41,27 +39,25 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExistElement(Object index) {
+    protected boolean isExist(Object index) {
         return (Integer) index >= 0;
     }
 
     @Override
-    protected Resume getElement(Object index) {
+    protected Resume doGet(Object index) {
         return storage[(Integer) index];
     }
-
 
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
-    protected abstract Integer findKeyObject(String uuid);
+    public int size() {
+        return size;
+    }
 
     protected abstract void insertResume(Resume resume, int index);
 
     protected abstract void deleteResume(int index);
 
-    public int size() {
-        return size;
-    }
 }
