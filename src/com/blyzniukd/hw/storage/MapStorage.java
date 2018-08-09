@@ -4,7 +4,7 @@ import com.blyzniukd.hw.model.Resume;
 
 public class MapStorage extends AbstractStorage {
     @Override
-    protected Object findKeyObject(String uuid) {
+    protected Object findKey(String uuid) {
         return null;
     }
 

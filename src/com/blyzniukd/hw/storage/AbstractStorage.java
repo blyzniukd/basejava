@@ -6,7 +6,7 @@ import com.blyzniukd.hw.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Object findKeyObject(String uuid);
+    protected abstract Object findKey(String uuid);
 
     protected abstract Resume doGet(Object searchKey);
 
@@ -39,7 +39,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getExistedKey(String uuid) {
-        Object searchKey = findKeyObject(uuid);
+        Object searchKey = findKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
@@ -47,7 +47,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getNotExistedKey(String uuid) {
-        Object searchKey = findKeyObject(uuid);
+        Object searchKey = findKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }

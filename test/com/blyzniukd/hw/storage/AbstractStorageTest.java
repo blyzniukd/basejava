@@ -61,7 +61,7 @@ public class AbstractStorageTest {
                 storage.save(new Resume());
             }
         } catch (Exception ex) {
-            Assert.fail();
+            Assert.fail("Some error appeared.");
         }
         storage.save(new Resume());
     }
@@ -95,8 +95,11 @@ public class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] expectedResumes = new Resume[]{resume_1, resume_2, resume_3};
-        Assert.assertArrayEquals(storage.getAll(), expectedResumes);
+        Resume[] array = storage.getAll();
+        Assert.assertEquals(3, array.length);
+        Assert.assertEquals(resume_1, array[0]);
+        Assert.assertEquals(resume_2, array[1]);
+        Assert.assertEquals(resume_3, array[2]);
     }
 
     @Test
