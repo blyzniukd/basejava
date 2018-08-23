@@ -2,20 +2,20 @@ package com.blyzniukd.hw.storage;
 
 import com.blyzniukd.hw.exception.ExistStorageException;
 import com.blyzniukd.hw.exception.NotExistStorageException;
-import com.blyzniukd.hw.exception.StorageException;
 import com.blyzniukd.hw.model.Resume;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.blyzniukd.hw.storage.AbstractArrayStorage.STORAGE_LIMIT;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbstractStorageTest {
-    private final Storage storage;
-    private final Resume resume_1 = new Resume("uuid1");
-    private final Resume resume_2 = new Resume("uuid2");
-    private final Resume resume_3 = new Resume("uuid3");
-    private final Resume resume_4 = new Resume("uuidNEW");
+    protected final Storage storage;
+    private final Resume resume_1 = new Resume("uuid1", "Dima 1");
+    private final Resume resume_2 = new Resume("uuid2", "Dima 2");
+    private final Resume resume_3 = new Resume("uuid3", "Dima 3");
+    private final Resume resume_4 = new Resume("uuidNEW", "Dima NEW ");
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -33,7 +33,7 @@ public class AbstractStorageTest {
     public void clear() {
         storage.clear();
         Assert.assertEquals(0, storage.size());
-        Assert.assertArrayEquals(new Resume[0], storage.getAll());
+        Assert.assertArrayEquals(new ArrayList<Resume>().toArray(), storage.getAll().toArray());
     }
 
     @Test
@@ -54,17 +54,6 @@ public class AbstractStorageTest {
         Assert.assertEquals(resume_4, storage.get(resume_4.getUuid()));
     }
 
-    @Test(expected = StorageException.class)
-    public void saveOverloadException() throws Exception {
-        try {
-            for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (Exception ex) {
-            Assert.fail("Some error appeared.");
-        }
-        storage.save(new Resume());
-    }
 
     @Test(expected = ExistStorageException.class)
     public void saveExistException() {
@@ -95,11 +84,11 @@ public class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] array = storage.getAll();
-        Assert.assertEquals(3, array.length);
-        Assert.assertEquals(resume_1, array[0]);
-        Assert.assertEquals(resume_2, array[1]);
-        Assert.assertEquals(resume_3, array[2]);
+        List<Resume> array = storage.getAll();
+        Assert.assertEquals(3, array.size());
+        Assert.assertEquals(resume_1, array.get(0));
+        Assert.assertEquals(resume_2, array.get(1));
+        Assert.assertEquals(resume_3, array.get(2));
     }
 
     @Test

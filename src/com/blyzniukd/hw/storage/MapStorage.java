@@ -2,6 +2,9 @@ package com.blyzniukd.hw.storage;
 
 import com.blyzniukd.hw.model.Resume;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MapStorage extends AbstractStorage {
     @Override
     protected Object findKey(String uuid) {
@@ -39,8 +42,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+    public List<Resume> getAll() {
+        return Arrays.asList(new Resume[0]);
     }
 
     @Override

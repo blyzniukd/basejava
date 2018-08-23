@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 public class MainReflection {
 
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Resume resume = new Resume();
+        Resume resume = new Resume("Dima NEW");
         System.out.println(resume);
         Method method = resume.getClass().getMethod("toString");
         System.out.println("invoke toString method =" + method.invoke(resume));
