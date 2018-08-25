@@ -33,7 +33,7 @@ public class AbstractStorageTest {
     public void clear() {
         storage.clear();
         Assert.assertEquals(0, storage.size());
-        Assert.assertArrayEquals(new ArrayList<Resume>().toArray(), storage.getAll().toArray());
+        Assert.assertArrayEquals(new ArrayList<Resume>().toArray(), storage.getAllSorted().toArray());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        List<Resume> array = storage.getAll();
+        List<Resume> array = storage.getAllSorted();
         Assert.assertEquals(3, array.size());
         Assert.assertEquals(resume_1, array.get(0));
         Assert.assertEquals(resume_2, array.get(1));

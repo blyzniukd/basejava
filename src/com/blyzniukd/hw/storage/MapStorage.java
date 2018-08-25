@@ -2,10 +2,8 @@ package com.blyzniukd.hw.storage;
 
 import com.blyzniukd.hw.model.Resume;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MapStorage extends AbstractStorage {
 
@@ -13,17 +11,17 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object findKey(String uuid) {
-        return storage.get(uuid);
+        return uuid;
     }
 
     @Override
     protected Resume doGet(Object keyObject) {
-        return storage.get(keyObject);
+        return storage.get((String)keyObject);
     }
 
     @Override
     protected boolean isExist(Object keyObject) {
-        return storage.containsKey(keyObject);
+        return storage.containsKey((String)keyObject);
     }
 
     @Override
@@ -33,12 +31,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Object keyObject, Resume resume) {
-        storage.put(((Resume) keyObject).getUuid(), resume);
+        storage.put((String) keyObject, resume);
     }
 
     @Override
     protected void doDelete(Object keyObject) {
-        storage.remove(keyObject);
+        storage.remove((String)keyObject);
     }
 
     @Override
@@ -47,8 +45,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAll() {
-        return Arrays.asList(new Resume[0]);
+    public List<Resume> getAllSorted() {
+        return  storage.values().stream().sorted((o1, o2) -> o1.compareTo(o2)).collect(Collectors.toList());
     }
 
     @Override
