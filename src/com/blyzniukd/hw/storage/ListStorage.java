@@ -50,8 +50,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        return list;
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(list);
     }
 
     @Override

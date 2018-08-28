@@ -2,8 +2,10 @@ package com.blyzniukd.hw.storage;
 
 import com.blyzniukd.hw.model.Resume;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
 
@@ -15,28 +17,28 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object keyObject) {
-        return storage.get((String)keyObject);
+    protected Resume doGet(Object key) {
+        return storage.get((String) key);
     }
 
     @Override
-    protected boolean isExist(Object keyObject) {
-        return storage.containsKey((String)keyObject);
+    protected boolean isExist(Object key) {
+        return storage.containsKey((String) key);
     }
 
     @Override
-    protected void doUpdate(Object keyObject, Resume resume) {
-        this.doSave(keyObject, resume);
+    protected void doUpdate(Object key, Resume resume) {
+        this.doSave(key, resume);
     }
 
     @Override
-    protected void doSave(Object keyObject, Resume resume) {
-        storage.put((String) keyObject, resume);
+    protected void doSave(Object key, Resume resume) {
+        storage.put((String) key, resume);
     }
 
     @Override
-    protected void doDelete(Object keyObject) {
-        storage.remove((String)keyObject);
+    protected void doDelete(Object key) {
+        storage.remove((String) key);
     }
 
     @Override
@@ -45,8 +47,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        return  storage.values().stream().sorted((o1, o2) -> o1.compareTo(o2)).collect(Collectors.toList());
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override

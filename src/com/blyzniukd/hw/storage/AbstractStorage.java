@@ -4,6 +4,9 @@ import com.blyzniukd.hw.exception.ExistStorageException;
 import com.blyzniukd.hw.exception.NotExistStorageException;
 import com.blyzniukd.hw.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     protected abstract Object findKey(String uuid);
@@ -17,6 +20,8 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void doSave(Object searchKey, Resume resume);
 
     protected abstract void doDelete(Object searchKey);
+
+    protected abstract List<Resume> doCopyAll();
 
     public void update(Resume resume) {
         Object searchKey = getExistedKey(resume.getUuid());
@@ -52,5 +57,11 @@ public abstract class AbstractStorage implements Storage {
             throw new ExistStorageException(uuid);
         }
         return searchKey;
+    }
+
+    public List<Resume> getAllSorted() {
+        List<Resume> copyList = doCopyAll();
+        Collections.sort(copyList);
+        return copyList;
     }
 }
