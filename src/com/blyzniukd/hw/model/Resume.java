@@ -1,18 +1,21 @@
 package com.blyzniukd.hw.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
 
     // Id
     private String uuid;
-    private String fullName;
+    private final String fullName;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid, "uuid must not be null.");
+        Objects.requireNonNull(fullName, "fullName must not be null.");
         this.uuid = uuid;
         this.fullName = fullName;
     }
@@ -28,10 +31,6 @@ public class Resume implements Comparable<Resume> {
 
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     @Override
