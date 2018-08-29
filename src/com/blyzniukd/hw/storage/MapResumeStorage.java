@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class MapResumeStorage extends AbstractStorage {
 
-    private Map<String, Resume> storage = new HashMap<String, Resume>();
+    private Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected Resume findKey(String uuid) {
+    protected Resume getSearcheKey(String uuid) {
         return storage.get(uuid);
     }
 
@@ -28,7 +28,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Object r, Resume resume) {
-        this.doSave(resume.getUuid(), resume);
+        doSave(resume.getUuid(), resume);
     }
 
     @Override

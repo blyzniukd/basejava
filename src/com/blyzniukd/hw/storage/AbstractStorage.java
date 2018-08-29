@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Object findKey(String uuid);
+    protected abstract Object getSearcheKey(String uuid);
 
     protected abstract Resume doGet(Object searchKey);
 
@@ -43,8 +43,14 @@ public abstract class AbstractStorage implements Storage {
         doDelete(searchKey);
     }
 
+    public List<Resume> getAllSorted() {
+        List<Resume> copyList = doCopyAll();
+        Collections.sort(copyList);
+        return copyList;
+    }
+
     private Object getExistedKey(String uuid) {
-        Object searchKey = findKey(uuid);
+        Object searchKey = getSearcheKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
@@ -52,16 +58,12 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getNotExistedKey(String uuid) {
-        Object searchKey = findKey(uuid);
+        Object searchKey = getSearcheKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }
         return searchKey;
     }
 
-    public List<Resume> getAllSorted() {
-        List<Resume> copyList = doCopyAll();
-        Collections.sort(copyList);
-        return copyList;
-    }
+
 }

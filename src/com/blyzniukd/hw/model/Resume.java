@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
 
     // Id
-    private String uuid;
+    private final String uuid;
     private final String fullName;
 
     public Resume(String fullName) {
@@ -20,13 +20,8 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public String getFullName() {
@@ -48,7 +43,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid;
+        return uuid + '(' + fullName + ')';
     }
 
     @Override

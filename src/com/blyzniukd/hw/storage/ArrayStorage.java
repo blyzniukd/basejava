@@ -4,7 +4,7 @@ import com.blyzniukd.hw.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected Integer findKey(String uuid) {
+    protected Integer getSearcheKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;

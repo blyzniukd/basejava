@@ -15,18 +15,14 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverloadException() throws Exception {
-        if (storage.getClass().isInstance(Object[].class)) {
-            try {
-                for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                    storage.save(new Resume("Name " + i));
-                }
-            } catch (Exception ex) {
-                Assert.fail("Some error appeared.");
+        try {
+            for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
+                storage.save(new Resume("Name " + i));
             }
-            storage.save(new Resume("Exception"));
-        } else {
-            throw new StorageException("", "");
+        } catch (Exception ex) {
+            Assert.fail("Some error appeared.");
         }
+        storage.save(new Resume("Overflow"));
     }
 
 }
