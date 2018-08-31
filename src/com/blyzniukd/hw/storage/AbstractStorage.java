@@ -6,8 +6,10 @@ import com.blyzniukd.hw.model.Resume;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class AbstractStorage implements Storage {
+    private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
     protected abstract Object getSearcheKey(String uuid);
 
@@ -29,11 +31,13 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume resume) {
+        LOG.info("Save " + resume.getUuid());
         Object searchKey = getNotExistedKey(resume.getUuid());
         doSave(searchKey, resume);
     }
 
     public Resume get(String uuid) {
+        LOG.info("Get " + uuid);
         Object searchKey = getExistedKey(uuid);
         return doGet(searchKey);
     }
@@ -52,6 +56,7 @@ public abstract class AbstractStorage implements Storage {
     private Object getExistedKey(String uuid) {
         Object searchKey = getSearcheKey(uuid);
         if (!isExist(searchKey)) {
+            LOG.warning("Resume " + uuid + " not exists.");
             throw new NotExistStorageException(uuid);
         }
         return searchKey;
@@ -60,6 +65,7 @@ public abstract class AbstractStorage implements Storage {
     private Object getNotExistedKey(String uuid) {
         Object searchKey = getSearcheKey(uuid);
         if (isExist(searchKey)) {
+            LOG.warning("Resume " + uuid + " already exists.");
             throw new ExistStorageException(uuid);
         }
         return searchKey;
