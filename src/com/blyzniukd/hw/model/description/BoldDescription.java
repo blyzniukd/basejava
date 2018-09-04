@@ -1,4 +1,4 @@
-package com.blyzniukd.hw.model;
+package com.blyzniukd.hw.model.description;
 
 public class BoldDescription extends Description {
 
@@ -8,6 +8,10 @@ public class BoldDescription extends Description {
 
     @Override
     public String printHtml() {
-        return "<b>" + super.printHtml() + "</b>";
+        return makeBold(super.printHtml());
+    }
+
+    private String makeBold( String text){
+        return  "<b>" + text + "</b>";
     }
 }

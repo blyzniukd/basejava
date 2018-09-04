@@ -1,4 +1,4 @@
-package com.blyzniukd.hw.model;
+package com.blyzniukd.hw.model.contact;
 
 public enum ContactType {
     EMAIL("Почта", "mailto:"),

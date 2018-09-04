@@ -1,5 +1,7 @@
 package com.blyzniukd.hw.model;
 
+import com.blyzniukd.hw.model.contact.Contacts;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -8,6 +10,7 @@ public class Resume implements Comparable<Resume> {
     // Id
     private final String uuid;
     private final String fullName;
+    private Contacts contacts;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
