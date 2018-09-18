@@ -1,11 +1,10 @@
 package com.blyzniukd.hw.model.contact;
 
-import com.blyzniukd.hw.model.PrintHtmlInterface;
 import com.blyzniukd.hw.model.description.Description;
 
 import java.util.Objects;
 
-public class Contact implements PrintHtmlInterface {
+public class Contact {
     private ContactType type;
     private Description description;
 
@@ -29,11 +28,6 @@ public class Contact implements PrintHtmlInterface {
 
     public void setDescription(Description description) {
         this.description = description;
-    }
-
-    @Override
-    public String printHtml() {
-        return type.getDescription() + ":" + description.printHtml();
     }
 
     @Override

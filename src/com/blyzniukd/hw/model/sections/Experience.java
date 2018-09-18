@@ -1,15 +1,14 @@
 package com.blyzniukd.hw.model.sections;
 
-import com.blyzniukd.hw.model.PrintHtmlInterface;
-import com.blyzniukd.hw.model.description.BoldDescription;
 import com.blyzniukd.hw.model.description.Description;
 import com.blyzniukd.hw.model.description.LinkDescription;
 import com.blyzniukd.hw.model.description.Period;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
-public class Experience extends AbstractArraySection<Experience.ExperienceDescription> {
+public class Experience extends AbstractArraySection<Experience.CompanyDescription> {
 
     public static final String HEADER = "Опыт работы";
 
@@ -18,20 +17,32 @@ public class Experience extends AbstractArraySection<Experience.ExperienceDescri
     }
 
 
-    public void add(String company, String link,  Date start, Date finish, String position, String positionDesc) {
-        ExperienceDescription record = new ExperienceDescription(new LinkDescription(company, link), new Period(start, finish), new BoldDescription(position), new Description(positionDesc));
+    public void add(String company, String link, LocalDate start, LocalDate finish, String position, String positionDesc) {
+        CompanyDescription record = new CompanyDescription(new LinkDescription(company, link), new Period(start, finish), new Description(position), new Description(positionDesc));
         super.add(record);
     }
 
-    class ExperienceDescription implements PrintHtmlInterface {
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+                sb.append("Experience{")
+                .append("Name=").append(HEADER).append(System.getProperty("line.separator"))
+                .append("list=").append(System.getProperty("line.separator"));
+                getList().forEach((e)->{sb.append(e+System.getProperty("line.separator"));});
+                sb.append('}');
+                return sb.toString();
+    }
+
+    class CompanyDescription {
         private LinkDescription company;
         private Period period;
-        private BoldDescription position;
+        private Description position;
         private Description description;
+        //Если группировать по компании, то не нужно лишний раз печатать назавание
         private boolean printCompany = true;
 
-        public ExperienceDescription(LinkDescription company, Period period, BoldDescription position, Description description1) {
-            this.company = company;
+        public CompanyDescription(LinkDescription company, Period period, Description position, Description description1) {
+            this.company= company;
             this.period = period;
             this.position = position;
             this.description = description1;
@@ -46,15 +57,10 @@ public class Experience extends AbstractArraySection<Experience.ExperienceDescri
         }
 
         @Override
-        public String printHtml() {
-            return printCompany() + printInfo();
-        }
-
-        @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            ExperienceDescription that = (ExperienceDescription) o;
+            CompanyDescription that = (CompanyDescription) o;
             return printCompany == that.printCompany &&
                     Objects.equals(company, that.company) &&
                     Objects.equals(period, that.period) &&
@@ -64,27 +70,19 @@ public class Experience extends AbstractArraySection<Experience.ExperienceDescri
 
         @Override
         public int hashCode() {
+
             return Objects.hash(company, period, position, description, printCompany);
         }
 
-        private String printCompany() {
-            StringBuffer sb = new StringBuffer();
-            if (printCompany) {
-                sb.append("<tr><td colspan=\"2\"><h3>");
-                sb.append(company.printHtml());
-                sb.append("</h3></td></tr>");
-            }
-            return sb.toString();
-        }
-
-        private String printInfo() {
-            StringBuffer sb = new StringBuffer();
-            sb.append("<tr><td>");
-            sb.append(period.printHtml());
-            sb.append("</td><td>");
-            sb.append(position.printHtml() + "<br>" + description.printHtml());
-            sb.append("</td></tr>");
-            return sb.toString();
+        @Override
+        public String toString() {
+            return new StringBuilder().append("CompanyDescription{")
+                            .append((isPrintCompany()) ? ("company=" + company) : "")
+                            .append(", period=").append(period)
+                            .append(", position=").append(position)
+                            .append(", description=").append(description)
+                            .append(", printCompany=").append(printCompany)
+                            .append('}').toString();
         }
     }
 }

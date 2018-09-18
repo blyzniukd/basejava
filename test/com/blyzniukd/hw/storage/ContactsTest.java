@@ -31,8 +31,8 @@ public class ContactsTest {
 
     @Test
     public void printresult() {
-        System.out.println(contacts.printHtml());
+        System.out.println(contacts);
         contacts.delete(EMAIL);
-        System.out.println("After delete="+contacts.printHtml());
+        System.out.println("After delete="+contacts);
     }
 }

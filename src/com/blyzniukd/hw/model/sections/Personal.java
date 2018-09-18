@@ -21,7 +21,10 @@ public class Personal extends AbstractSection {
     }
 
     @Override
-    public String printHtml() {
-        return super.printHtml()+description.printHtml();
+    public String toString() {
+        return "Personal{" +
+                "description=" + description +
+                '}';
     }
+
 }

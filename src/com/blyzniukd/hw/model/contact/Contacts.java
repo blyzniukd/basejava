@@ -1,11 +1,9 @@
 package com.blyzniukd.hw.model.contact;
 
-import com.blyzniukd.hw.model.PrintHtmlInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Contacts implements PrintHtmlInterface {
+public class Contacts {
 
     private List<Contact> contacts = new ArrayList<>();
 
@@ -31,11 +29,12 @@ public class Contacts implements PrintHtmlInterface {
         contacts.clear();
     }
 
-    @Override
-    public String printHtml() {
-        StringBuffer sb = new StringBuffer();
-        contacts.forEach((e) -> sb.append(e.printHtml() + System.getProperty("line.separator")));
-        return sb.toString();
-    }
 
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        contacts.forEach((e) -> sb.append(e.toString() + System.getProperty("line.separator")));
+        return sb.toString();
+
+    }
 }

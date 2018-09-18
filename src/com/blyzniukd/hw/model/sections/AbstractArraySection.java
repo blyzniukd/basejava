@@ -1,13 +1,12 @@
 package com.blyzniukd.hw.model.sections;
 
-import com.blyzniukd.hw.model.PrintHtmlInterface;
+import com.blyzniukd.hw.model.description.Description;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractArraySection<E extends PrintHtmlInterface> extends AbstractSection {
+public abstract class AbstractArraySection<E> extends AbstractSection {
     protected List<E> list = new ArrayList<>();
-
 
     public AbstractArraySection(String text) {
         super(text);
@@ -31,13 +30,4 @@ public abstract class AbstractArraySection<E extends PrintHtmlInterface> extends
         list.clear();
     }
 
-    @Override
-    public String printHtml() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(super.printHtml());
-        sb.append("<ul>");
-        list.forEach((e) -> sb.append(e.printHtml()));
-        sb.append("</ul>");
-        return sb.toString();
-    }
 }

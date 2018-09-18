@@ -1,10 +1,8 @@
 package com.blyzniukd.hw.model.description;
 
-import com.blyzniukd.hw.model.PrintHtmlInterface;
-
 import java.util.Objects;
 
-public class Description implements PrintHtmlInterface {
+public class Description {
     private String description;
 
     public Description(String description) {
@@ -19,10 +17,6 @@ public class Description implements PrintHtmlInterface {
         this.description = description;
     }
 
-    @Override
-    public String printHtml() {
-        return description;
-    }
 
     @Override
     public String toString() {

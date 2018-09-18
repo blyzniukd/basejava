@@ -28,18 +28,18 @@ public class LinkDescription extends Description {
         this.prefix = prefix;
     }
 
-    @Override
-    public String printHtml() {
-        return makeLink(super.printHtml());
+    public String getLink() {
+        return link;
     }
 
-    private String  makeLink (String text){
-        return "<a href=\"" + prefix + link + "\">" + text + "</a>";
+    public String getPrefix() {
+        return prefix;
     }
 
     @Override
     public String toString() {
         return "LinkDescription{" +
+                "description=" +super.toString()+
                 "link='" + link + '\'' +
                 ", prefix='" + prefix + '\'' +
                 '}';

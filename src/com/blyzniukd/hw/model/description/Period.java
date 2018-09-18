@@ -1,31 +1,33 @@
 package com.blyzniukd.hw.model.description;
 
-import com.blyzniukd.hw.model.PrintHtmlInterface;
-
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
-public class Period implements PrintHtmlInterface {
+public class Period {
 
-    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("MM-YYYY");
-    private Date start;
-    private Date finish;
+//    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("MM-YYYY");
 
-    public Period(Date start, Date finish) {
+    private LocalDate start;
+    private LocalDate finish;
+
+    public Period(LocalDate start, LocalDate finish) {
         this.start = start;
         this.finish = finish;
     }
 
-    public Period(Date start) {
+    public Period(LocalDate start) {
         this.start = start;
     }
 
     @Override
-    public String printHtml() {
-        return DATE_FORMATTER.format(start) + " - " + (isNull(finish) ? "Now" : DATE_FORMATTER.format(finish));
+    public String toString() {
+        return start.format(DateTimeFormatter.ofPattern("MM/YYYY"))+ "-" + (isNull(finish) ? "Now" : finish.format(DateTimeFormatter.ofPattern("MM/YYYY")));
+        //return DATE_FORMATTER.format(start) + " - " + (isNull(finish) ? "Now" : DATE_FORMATTER.format(finish));
     }
 
     @Override
