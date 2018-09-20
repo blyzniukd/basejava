@@ -1,16 +1,21 @@
 package com.blyzniukd.hw.model;
 
 import com.blyzniukd.hw.model.contact.Contacts;
+import com.blyzniukd.hw.model.sections.*;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
 
-    // Id
     private final String uuid;
     private final String fullName;
     private Contacts contacts;
+    private Personal personal;
+    private Achievement achievement;
+    private Qualifications qualifications;
+    private Experience experience;
+    private Education education;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -21,6 +26,12 @@ public class Resume implements Comparable<Resume> {
         Objects.requireNonNull(fullName, "fullName must not be null.");
         this.uuid = uuid;
         this.fullName = fullName;
+        contacts = new Contacts();
+        personal = new Personal();
+        achievement = new Achievement();
+        qualifications = new Qualifications();
+        experience = new Experience();
+        education = new Education();
     }
 
     public String getUuid() {
@@ -29,6 +40,54 @@ public class Resume implements Comparable<Resume> {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public Contacts getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
+    }
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
+    public Achievement getAchievement() {
+        return achievement;
+    }
+
+    public void setAchievement(Achievement achievement) {
+        this.achievement = achievement;
+    }
+
+    public Qualifications getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(Qualifications qualifications) {
+        this.qualifications = qualifications;
+    }
+
+    public Experience getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Experience experience) {
+        this.experience = experience;
+    }
+
+    public Education getEducation() {
+        return education;
+    }
+
+    public void setEducation(Education education) {
+        this.education = education;
     }
 
     @Override
