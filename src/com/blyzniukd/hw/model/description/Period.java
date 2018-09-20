@@ -1,16 +1,14 @@
 package com.blyzniukd.hw.model.description;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
 public class Period {
 
-//    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("MM-YYYY");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM/YYYY");
 
     private LocalDate start;
     private LocalDate finish;
@@ -26,8 +24,7 @@ public class Period {
 
     @Override
     public String toString() {
-        return start.format(DateTimeFormatter.ofPattern("MM/YYYY"))+ "-" + (isNull(finish) ? "Now" : finish.format(DateTimeFormatter.ofPattern("MM/YYYY")));
-        //return DATE_FORMATTER.format(start) + " - " + (isNull(finish) ? "Now" : DATE_FORMATTER.format(finish));
+        return start.format(DATE_FORMATTER) + "-" + (isNull(finish) ? "Now" : finish.format(DATE_FORMATTER));
     }
 
     @Override

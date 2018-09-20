@@ -13,12 +13,16 @@ public class Contacts {
 
     public void update(Contact record) {
         int key = contacts.indexOf(record);
-        if (key != -1){ contacts.set(key, record);}
+        if (key != -1) {
+            contacts.set(key, record);
+        }
     }
 
-    public void delete( Contact record){
+    public void delete(Contact record) {
         int key = contacts.indexOf(record);
-        if (key != -1){ contacts.remove(key);}
+        if (key != -1) {
+            contacts.remove(key);
+        }
     }
 
     public List<Contact> getContacts() {

@@ -7,9 +7,9 @@ public class Personal extends AbstractSection {
     private static final String HEADER = "Личные качества";
     private Description description;
 
-    public Personal() {
+    public Personal(String description) {
         super(HEADER);
-        this.description = description;
+        this.description = new Description(description);
     }
 
     public Description getDescription() {

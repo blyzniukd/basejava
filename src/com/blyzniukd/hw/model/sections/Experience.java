@@ -5,7 +5,6 @@ import com.blyzniukd.hw.model.description.LinkDescription;
 import com.blyzniukd.hw.model.description.Period;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Experience extends AbstractArraySection<Experience.CompanyDescription> {
@@ -22,47 +21,27 @@ public class Experience extends AbstractArraySection<Experience.CompanyDescripti
         super.add(record);
     }
 
-    @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-                sb.append("Experience{")
-                .append("Name=").append(HEADER).append(System.getProperty("line.separator"))
-                .append("list=").append(System.getProperty("line.separator"));
-                getList().forEach((e)->{sb.append(e+System.getProperty("line.separator"));});
-                sb.append('}');
-                return sb.toString();
-    }
 
     class CompanyDescription {
         private LinkDescription company;
         private Period period;
         private Description position;
         private Description description;
-        //Если группировать по компании, то не нужно лишний раз печатать назавание
-        private boolean printCompany = true;
 
         public CompanyDescription(LinkDescription company, Period period, Description position, Description description1) {
-            this.company= company;
+            this.company = company;
             this.period = period;
             this.position = position;
             this.description = description1;
         }
 
-        public boolean isPrintCompany() {
-            return printCompany;
-        }
-
-        public void setPrintCompany(boolean printCompany) {
-            this.printCompany = printCompany;
-        }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             CompanyDescription that = (CompanyDescription) o;
-            return printCompany == that.printCompany &&
-                    Objects.equals(company, that.company) &&
+            return Objects.equals(company, that.company) &&
                     Objects.equals(period, that.period) &&
                     Objects.equals(position, that.position) &&
                     Objects.equals(description, that.description);
@@ -71,18 +50,17 @@ public class Experience extends AbstractArraySection<Experience.CompanyDescripti
         @Override
         public int hashCode() {
 
-            return Objects.hash(company, period, position, description, printCompany);
+            return Objects.hash(company, period, position, description);
         }
 
         @Override
         public String toString() {
             return new StringBuilder().append("CompanyDescription{")
-                            .append((isPrintCompany()) ? ("company=" + company) : "")
-                            .append(", period=").append(period)
-                            .append(", position=").append(position)
-                            .append(", description=").append(description)
-                            .append(", printCompany=").append(printCompany)
-                            .append('}').toString();
+                    .append("company=").append(company)
+                    .append(", period=").append(period)
+                    .append(", position=").append(position)
+                    .append(", description=").append(description)
+                    .append('}').toString();
         }
     }
 }

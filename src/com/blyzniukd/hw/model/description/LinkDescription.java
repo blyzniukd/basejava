@@ -2,7 +2,7 @@ package com.blyzniukd.hw.model.description;
 
 public class LinkDescription extends Description {
 
-    private final String  PREFIX_HTTPS = "https://";
+    private final String PREFIX_HTTPS = "https://";
 
     private String link;
     private String prefix;
@@ -11,7 +11,7 @@ public class LinkDescription extends Description {
     public LinkDescription(String description, String link) {
         super(description);
         this.link = link;
-        this.prefix= PREFIX_HTTPS;
+        this.prefix = PREFIX_HTTPS;
     }
 
     public LinkDescription(String description, String link, String prefix) {
@@ -39,9 +39,10 @@ public class LinkDescription extends Description {
     @Override
     public String toString() {
         return "LinkDescription{" +
-                "description=" +super.toString()+
+                "description=" + super.toString() +
                 "link='" + link + '\'' +
                 ", prefix='" + prefix + '\'' +
+                ", description='" + super.getDescription() + '\'' +
                 '}';
     }
 }
